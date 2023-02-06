@@ -1,55 +1,54 @@
-import isError from './error.js';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
-function handleSelect(event) {
-  event.preventDefault();
-  const input1 = parseInt(document.getElementById("select-beverage").value);
-  const input2 = parseInt(document.getElementById("select-car").value);
-  const input3 = parseInt(document.getElementById("select-animal").value);
-  const input4 = parseInt(document.getElementById("select-shoe").value);
-  const input5 = parseInt(document.getElementById("select-event").value);
+//j Business Logic
+
+function getWeather(city) {
+  let request = new XMLHttpRequest();
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}&`;
   
-  const userName = document.getElementById("person1").value;
+  request.addEventListener("loadend", function() {
+    try {
+      const response = JSON.parse(this.responseText);
+      if (this.status === 200) {
+        printElements(response, city);
+      } else {
+        throw Error("Status Error");
+        // printError(this, city);
+      }
+    } catch(error) {
+      /* eslint-disable no-console */
+      console.error(`Red Alert: There is an error: ${error.message}`);
+      /* eslint-enable no-console */
+      printError(this, city);
+    }
+  });
 
-  let output;
-  let totalValue = ((((input1 + input2) + input3) + input4) + input5);
-  if (isError(input1, input2, input3, input4, input5)) {
-    output = "Error";
-    document.querySelector("p#error").removeAttribute("class", "hidden");
-    document.querySelector("p#Java").setAttribute("class", "hidden");
-    document.querySelector("p#python").setAttribute("class", "hidden");
-    document.querySelector("p#C").setAttribute("class", "hidden");
-  } else {
-
-    if (totalValue === 5) {
-      output = "JavaScript";
-      document.querySelector("p#Java").removeAttribute("class");
-      document.querySelector("p#python").setAttribute("class", "hidden");
-      document.querySelector("p#C").setAttribute("class", "hidden");
-      document.querySelector("p#error").setAttribute("class", "hidden");
-    } else if (totalValue > 5 && totalValue <= 10) {
-      output = "Python";
-      document.querySelector("p#Java").setAttribute("class", "hidden");
-      document.querySelector("p#python").removeAttribute("class");
-      document.querySelector("p#C").setAttribute("class","hidden");
-      document.querySelector("p#error").setAttribute("class", "hidden");
-
-    } else if (totalValue > 10 && totalValue <= 15) {
-      output = "C++";
-
-      document.querySelector("p#Java").setAttribute("class", "hidden");
-      document.querySelector("p#python").setAttribute("class", "hidden");
-      document.querySelector("p#C").removeAttribute("class");
-      document.querySelector("p#error").setAttribute("class", "hidden");
-    } 
-  }
-
-  document.getElementById("output").innerText = output;
-  document.querySelector("span#name1").innerText =  userName;
-  document.querySelector("span#name2").innerText = userName;
-  document.querySelector("span#name3").innerText = userName;
+  request.open("GET", url, true);
+  request.send();
 }
 
-window.addEventListener("load", function() {
-  this.document.getElementById("select-form").addEventListener("submit", handleSelect);
+// UI Logic 
+
+function printError(request, city) {
+  document.querySelector(`#showResponse`).innerText = `There was an error accessing the weather data for ${city}: ${request.status} ${request.statusText}`;
+}
+
+function printElements(apiResponse, city) {
+  document.querySelector('#showResponse').innerText = `The humidity in ${city} is ${apiResponse.main.humidity}%.
+    The temperature in Kelvins is ${apiResponse.main.temp} degrees.
+    The temperature in Fahrenheit is ${((parseFloat(apiResponse.main.temp)-273.15)*(9/5)+32).toFixed(0)}.
+    The wind speed in mph is ${apiResponse.wind.speed}`;
+}
+
+function handleFormSubmission(event) {
+  event.preventDefault();
+  const city = document.querySelector('#location').value;
+  document.querySelector('#location').value = null; 
+  getWeather(city);
+}
+
+window.addEventListener("load", function () {
+  this.document.querySelector('form').addEventListener("submit", handleFormSubmission);
 });
