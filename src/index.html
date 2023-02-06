@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Learning-to-Program</title>
+  </head>
+
+  <body class="centered">
+    <h1>Let's Learn a new language!</h1>
+    <h5>By: Kai Clausen</h5>
+    <h2>Javascript, Python, and C++</h2>
+    <p>There are many different programming languages, and they all have their uses. Some of these languages are best suited for data oriented work, while others are better for web and software design. It's important to find what language you should be using for your project, so I created a brief survey to help you decide.</p>
+
+    <div class="form-box">
+      <form id="select-form">
+        <label for="person1">Your Name: </label>
+        <input id="person1" type="text" name="person1"><br>
+        <label for="select-beverage">Choose a Beverage</label>
+        <select id="select-beverage">
+          <option value="0">Select One</option>
+          <option value="1">Coffee</option>
+          <option value="2">Water</option>
+          <option value="3">Energy Drinks</option>
+        </select>
+        <label for="select-car">Choose a Car</label>
+        <select id="select-car">
+          <option value="0">Select One</option>
+          <option value="1">Volkswagen Bug</option>
+          <option value="2">Toyota Prius</option>
+          <option value="3">Mazda Miata</option>
+        </select>
+        <label for="select-animal">Choose an Animal</label>
+        <select id="select-animal">
+          <option value="0">Select One</option>
+          <option value="1">Cat</option>
+          <option value="2">Snake</option>
+          <option value="3">Dog</option>
+        </select>
+        <label for="select-shoe">Select a Shoe</label>
+        <select id="select-shoe">
+          <option value="0">Select One</option>
+          <option value="1">Birkenstocks</option>
+          <option value="2">New Balance</option>
+          <option value="3">Jordan's</option>
+        </select>
+        <label for="select-event">Select an Event</label>
+        <select id="select-event">
+          <option value="0">Select One</option>
+          <option value="1">Paint and Sip</option>
+          <option value="2">Book Signing</option>
+          <option value="3">Party</option><br>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <h3>Result</h3>
+    <h3 id="output"></h3>
+    <p id="Java" class="hidden box"><span id="name1">___</span>! Your best fit is Javascript, which has a wide variety of uses it is primarily known for its importance in web development and design. If you want to work on websites, Javascript is for you!</p>
+    <p id="python" class="hidden box"><span id= "name2">___</span>! Your best fit is Python. This language is used largely in the scientific community for it's data handling capabilities. If you want to keep track of vast amounts of data, Python is for you!</p>
+    <p id="C" class="hidden box"><span id="name3">___</span>! Your best fit is C++. This language is used in programming most major video games. It's most notable features are it's flexibility and the ability to interact with low level languages, like ones that control the functionality of hardware. So if you want to program the next AAA title, C++ is likely for you!</p>
+    <p id="error" class="hidden redbox">Please select one of the three bottom options in every dropdown menu to see what language is best for you.</p>
+    <div class="sticky">Disclaimer:<br> The method used to calculate which language you should learn first is arbitrary. Take this with a grain of salt.</div>
+  </body>
+</html>
